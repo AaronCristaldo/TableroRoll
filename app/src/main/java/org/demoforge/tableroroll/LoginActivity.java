@@ -54,8 +54,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signInWithGoogle();
+
             }
         });
+
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     private void signInWithGoogle() {
@@ -98,10 +107,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Redirige a otra actividad (por ejemplo, MainActivity)
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
+                            goToMainActivity();
                             finish();
                         } else {
-                            // Si falla, muestra un mensaje al usuario.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
                         }
                     }

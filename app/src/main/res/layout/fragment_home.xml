@@ -6,17 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <!-- Título o encabezado (opcional) -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona una opción"
+            android:textSize="20sp"
+            android:layout_marginBottom="24dp"
+            android:textColor="#000000"
+            android:gravity="center"/>
+
+        <!-- Botón: Acceder a Fitxa -->
+        <Button
+            android:id="@+id/btnAccederFitxa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Acceder a Fitxa"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <!-- Botón: Acceder a Tablero -->
+        <Button
+            android:id="@+id/btnAccederTablero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Acceder a Tablero"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <!-- Botón: Crear Fitxa -->
+        <Button
+            android:id="@+id/btnCrearFitxa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Fitxa"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackground" />
+
+        <!-- Botón: Crear Tablero -->
+        <Button
+            android:id="@+id/btnCrearTablero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Tablero"
+            android:textSize="18sp"
+            android:background="?android:attr/selectableItemBackground" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
