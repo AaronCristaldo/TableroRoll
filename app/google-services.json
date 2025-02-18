@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "830987542223",
+    "project_id": "tableroroll",
+    "storage_bucket": "tableroroll.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830987542223:android:880c24f2ce02d43b7e21ba",
+        "android_client_info": {
+          "package_name": "org.demoforge.tableroroll"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLyxZ6aZEX0y0SSDqK8cNSKnW3OFIiXWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
