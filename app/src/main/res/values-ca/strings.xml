@@ -1,15 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TableroRoll</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="default_web_client_id">830987542223-e1ep5n5fvl941q4587uhptjpe910af5l.apps.googleusercontent.com</string>
-    <string name="acceder_tablero">Acceder a Tablero</string>
+    <string name="acceder_tablero">Accedir Tabler</string>
     <string name="crear_fitxa">Crear Fitxa</string>
-    <string name="crear_tablero">Crear Tablero</string>
+    <string name="crear_tablero">Crear Tabler</string>
     <string name="seleccionar_opcion">Selecciona una opción</string>
-
-
-
 
 </resources>

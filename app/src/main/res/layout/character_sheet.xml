@@ -17,7 +17,7 @@
             android:id="@+id/tvTituloFicha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ficha de Personaje - D&D 5e"
+            android:text="Ficha de Personaje - DD 5e"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center" />

@@ -19,7 +19,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecciona una opción"
+            android:text="@string/seleccionar_opcion"
             android:textSize="20sp"
             android:layout_marginBottom="24dp"
             android:textColor="#000000"
@@ -40,8 +40,9 @@
             android:id="@+id/btnAccederTablero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Acceder a Tablero"
+            android:text="@string/acceder_tablero"
             android:textSize="18sp"
+            android:textColor="@color/black"
             android:layout_marginBottom="16dp"
             android:background="?android:attr/selectableItemBackground" />
 
@@ -50,8 +51,9 @@
             android:id="@+id/btnCrearFitxa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear Fitxa"
+            android:text="@string/crear_fitxa"
             android:textSize="18sp"
+            android:textColor="@color/black"
             android:layout_marginBottom="16dp"
             android:background="?android:attr/selectableItemBackground" />
 
@@ -60,8 +62,9 @@
             android:id="@+id/btnCrearTablero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Crear Tablero"
+            android:text="@string/crear_tablero"
             android:textSize="18sp"
+            android:textColor="@color/black"
             android:background="?android:attr/selectableItemBackground" />
 
     </LinearLayout>

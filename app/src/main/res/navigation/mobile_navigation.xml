@@ -22,4 +22,8 @@
         android:name="org.demoforge.tableroroll.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/characterSheetFragment"
+        android:name="org.demoforge.tableroroll.ui.home.CharacterSheetFragment"
+        android:label="Character Sheet" />
 </navigation>
