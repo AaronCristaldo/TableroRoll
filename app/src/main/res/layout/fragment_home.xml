@@ -66,6 +66,13 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:background="?android:attr/selectableItemBackground" />
+        <Button
+            android:id="@+id/btnOpenGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Abrir Cuadrícula"
+            android:layout_gravity="center" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
