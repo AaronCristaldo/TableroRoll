@@ -22,35 +22,32 @@ public class GridTableView {
 
     public TableLayout createGrid(int rows, int cols) {
         TableLayout tableLayout = new TableLayout(context);
+        tableLayout.setLayoutParams(new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.WRAP_CONTENT,
+                TableLayout.LayoutParams.WRAP_CONTENT
+        ));
+        tableLayout.setBackgroundColor(Color.TRANSPARENT);
 
-        // Calcular el tamaño total de la tabla en base a las filas y columnas
         int totalWidth = cols * cellSize;
         int totalHeight = rows * cellSize;
 
-        // Establecer el tamaño del layout de la tabla
-        tableLayout.setLayoutParams(new TableLayout.LayoutParams(
-                totalWidth,  // El ancho total
-                totalHeight  // El alto total
-        ));
+        tableLayout.setMinimumWidth(totalWidth);
+        tableLayout.setMinimumHeight(totalHeight);
 
-        tableLayout.setBackgroundColor(Color.BLACK);
-
-        // Generar las filas y columnas
         for (int i = 0; i < rows; i++) {
             TableRow tableRow = new TableRow(context);
             for (int j = 0; j < cols; j++) {
                 TextView textView = new TextView(context);
 
-                // Generar un número aleatorio del 1 al 10
                 int randomNumber = random.nextInt(10) + 1;
                 textView.setText(String.valueOf(randomNumber));
 
-                textView.setBackgroundColor(Color.WHITE);
+                textView.setBackgroundColor(Color.TRANSPARENT);
                 textView.setTextColor(Color.BLACK);
                 textView.setWidth(cellSize);
                 textView.setHeight(cellSize);
                 textView.setGravity(Gravity.CENTER);
-                textView.setTextSize(18); // Aumentamos el tamaño del texto para que sea más visible
+                textView.setTextSize(18);
 
                 tableRow.addView(textView);
             }

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- grid_layout.xml -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,12 +14,25 @@
             android:scrollbars="horizontal">
 
             <FrameLayout
-                android:id="@+id/gridContainer"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/mapImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dnd_mapa_mini_acantilado"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"/>
+
+
+                <FrameLayout
+                    android:id="@+id/gridContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
         </HorizontalScrollView>
     </ScrollView>
-
-
 
 </RelativeLayout>
