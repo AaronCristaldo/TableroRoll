@@ -1,5 +1,6 @@
 package org.demoforge.tableroroll.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import org.demoforge.tableroroll.R;
+import org.demoforge.tableroroll.GridActivity;
 import org.demoforge.tableroroll.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -29,17 +28,14 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
-        // Asigna el listener después de haber inicializado el binding
-        binding.btnCrearFitxa.setOnClickListener(new View.OnClickListener() {
+        // Botón para abrir la cuadrícula
+        binding.btnOpenGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController navController = Navigation.findNavController(root);
-                navController.navigate(R.id.characterSheetFragment);
+                Intent intent = new Intent(getActivity(), GridActivity.class);
+                startActivity(intent);
             }
         });
-
-        // Aquí puedes acceder a los elementos del layout y añadir lógica, por ejemplo:
-        // binding.textView.setText("Bienvenido!");
 
         return root;
     }
@@ -47,7 +43,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Liberar el binding para evitar posibles fugas de memoria
-        binding = null;
+        binding = null; // Evitar fugas de memoria
     }
 }
