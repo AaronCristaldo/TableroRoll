@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.demoforge.tableroroll.R;
+import org.demoforge.tableroroll.databinding.FragmentFichaBinding;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +36,7 @@ public class CharacterSheetFragment extends Fragment {
     private EditText etFuerza, etDestreza, etConstitucion, etInteligencia, etSabiduria, etCarisma;
     private EditText etSalvacionFue, etSalvacionDes, etSalvacionCon;
     private TextView tvTituloFicha, tvAtributos, tvSalvaciones;
+    private FragmentFichaBinding binding; // Usa ViewBinding para el fragmento
 
     // URLs de la API
     private static final String URL_CLASSES = "https://www.dnd5eapi.co/api/classes";
