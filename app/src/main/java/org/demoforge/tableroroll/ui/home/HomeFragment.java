@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import org.demoforge.tableroroll.GridActivity;
+import org.demoforge.tableroroll.R;
 import org.demoforge.tableroroll.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -34,6 +38,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), GridActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        binding.btnCrearFitxa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Usando NavController para navegar a CharacterSheetFragment
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_homeFragment_to_characterSheetFragment);
             }
         });
 

@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="org.demoforge.tableroroll.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_characterSheetFragment"
+            app:destination="@id/characterSheetFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,6 +26,7 @@
         android:name="org.demoforge.tableroroll.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/characterSheetFragment"
         android:name="org.demoforge.tableroroll.ui.home.CharacterSheetFragment"
