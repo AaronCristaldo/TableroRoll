@@ -10,9 +10,15 @@
         android:name="org.demoforge.tableroroll.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/action_homeFragment_to_characterSheetFragment"
             app:destination="@id/characterSheetFragment" />
+
+        <!-- ✅ Se mueve la acción aquí -->
+        <action
+            android:id="@+id/action_homeFragment_to_crearTableroFragment"
+            app:destination="@id/crearTableroFragment" />
     </fragment>
 
     <fragment
@@ -31,4 +37,10 @@
         android:id="@+id/characterSheetFragment"
         android:name="org.demoforge.tableroroll.ui.home.CharacterSheetFragment"
         android:label="Character Sheet" />
+
+    <fragment
+        android:id="@+id/crearTableroFragment"
+        android:name="org.demoforge.tableroroll.CrearTableroFragment"
+        android:label="Crear Tablero"
+        tools:layout="@layout/fragment_crear_tablero" />
 </navigation>

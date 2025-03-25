@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -41,12 +40,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Botón para crear ficha
         binding.btnCrearFitxa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Usando NavController para navegar a CharacterSheetFragment
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_homeFragment_to_characterSheetFragment);
+            }
+        });
+
+        // Botón para crear tablero (NUEVO)
+        binding.btnCrearTablero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_homeFragment_to_crearTableroFragment);
             }
         });
 
