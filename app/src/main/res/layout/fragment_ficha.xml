@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout de una ficha de personaje de D&D 5e con salvaciones, puntos de golpe, habilidades y equipo -->
+<!-- Layout completo para la ficha de personaje de D&D 5e -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollViewFicha"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
+    <!-- Contenedor principal -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,17 +21,20 @@
             android:text="Ficha de Personaje - DnD 5e"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:gravity="center" />
+            android:gravity="center"
+            android:padding="8dp" />
 
-        <!-- Sección: Información Básica -->
+        <!-- SECCIÓN: INFORMACIÓN BÁSICA -->
         <LinearLayout
+            android:id="@+id/layoutInformacionBasica"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="16dp">
 
-            <!-- Nombre -->
+            <!-- Nombre del Personaje -->
             <TextView
+                android:id="@+id/tvNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre del Personaje:" />
@@ -40,19 +44,34 @@
                 android:layout_height="wrap_content"
                 android:hint="Introduce el nombre" />
 
-            <!-- Clase y Nivel (Se sustituye el campo para clase por un Spinner) -->
+            <!-- Nivel -->
             <TextView
+                android:id="@+id/tvNivel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clase y Nivel:"
+                android:text="Nivel:"
                 android:layout_marginTop="8dp" />
             <EditText
-                android:id="@+id/etClaseNivel"
+                android:id="@+id/etNivel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ej. Guerrero 5" />
+                android:hint="Introduce el nivel (1-20)"
+                android:inputType="number" />
 
-            <!-- Spinner para seleccionar la Clase -->
+            <!-- Bonificador de Competencia -->
+            <TextView
+                android:id="@+id/tvLabelBonificadorCompetencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bonificador de competencia:"
+                android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/tvBonificadorCompetencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+2"
+                android:textStyle="bold" />
+            <!-- Spinner para Clases (de la API) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,10 +80,12 @@
             <Spinner
                 android:id="@+id/spinnerClases"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp" />
 
-            <!-- Spinner para seleccionar la Raza -->
+            <!-- Spinner para Raza -->
             <TextView
+                android:id="@+id/tvRaza"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Raza:"
@@ -75,8 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp" />
 
-            <!-- Spinner para seleccionar el Alineamiento -->
+            <!-- Spinner para Alineamiento -->
             <TextView
+                android:id="@+id/tvAlineamiento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Alineamiento:"
@@ -87,8 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp" />
 
-            <!-- Spinner para seleccionar los Antecedentes -->
+            <!-- Spinner para Antecedentes -->
             <TextView
+                android:id="@+id/tvAntecedentes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Antecedentes:"
@@ -101,6 +124,7 @@
 
             <!-- XP -->
             <TextView
+                android:id="@+id/tvXP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Experiencia:"
@@ -111,9 +135,68 @@
                 android:layout_height="wrap_content"
                 android:hint="Puntos de experiencia"
                 android:inputType="number" />
-        </LinearLayout>
 
-        <!-- Sección: Atributos -->
+        </LinearLayout>
+        <!-- FIN SECCIÓN: INFORMACIÓN BÁSICA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CA"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Iniciativa"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Movimiento"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- SECCIÓN: ATRIBUTOS -->
         <TextView
             android:id="@+id/tvAtributos"
             android:layout_width="match_parent"
@@ -124,8 +207,9 @@
             android:gravity="center"
             android:layout_marginTop="16dp" />
 
-        <!-- Primera fila de atributos: FUE, DES, CON -->
+        <!-- Primera fila de atributos: Fuerza, Destreza, Constitución -->
         <LinearLayout
+            android:id="@+id/layoutAtributosFila1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -133,12 +217,14 @@
 
             <!-- Fuerza -->
             <LinearLayout
+                android:id="@+id/layoutFuerza"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
                 <TextView
+                    android:id="@+id/tvFuerza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fuerza (FUE)" />
@@ -151,12 +237,14 @@
 
             <!-- Destreza -->
             <LinearLayout
+                android:id="@+id/layoutDestreza"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
                 <TextView
+                    android:id="@+id/tvDestreza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Destreza (DES)" />
@@ -169,12 +257,14 @@
 
             <!-- Constitución -->
             <LinearLayout
+                android:id="@+id/layoutConstitucion"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
                 <TextView
+                    android:id="@+id/tvConstitucion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Constitución (CON)" />
@@ -186,8 +276,9 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Segunda fila de atributos: INT, SAB, CAR -->
+        <!-- Segunda fila de atributos: Inteligencia, Sabiduría, Carisma -->
         <LinearLayout
+            android:id="@+id/layoutAtributosFila2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -195,12 +286,14 @@
 
             <!-- Inteligencia -->
             <LinearLayout
+                android:id="@+id/layoutInteligencia"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
                 <TextView
+                    android:id="@+id/tvInteligencia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Inteligencia (INT)" />
@@ -213,12 +306,14 @@
 
             <!-- Sabiduría -->
             <LinearLayout
+                android:id="@+id/layoutSabiduria"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
                 <TextView
+                    android:id="@+id/tvSabiduria"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sabiduría (SAB)" />
@@ -231,12 +326,14 @@
 
             <!-- Carisma -->
             <LinearLayout
+                android:id="@+id/layoutCarisma"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
                 <TextView
+                    android:id="@+id/tvCarisma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Carisma (CAR)" />
@@ -247,8 +344,9 @@
                     android:inputType="number" />
             </LinearLayout>
         </LinearLayout>
+        <!-- FIN SECCIÓN: ATRIBUTOS -->
 
-        <!-- Sección: Salvaciones -->
+        <!-- SECCIÓN: SALVACIONES -->
         <TextView
             android:id="@+id/tvSalvaciones"
             android:layout_width="match_parent"
@@ -259,69 +357,663 @@
             android:gravity="center"
             android:layout_marginTop="16dp" />
 
+        <!-- Salvaciones en 2 filas -->
         <LinearLayout
+            android:id="@+id/layoutSalvaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="8dp">
 
-            <!-- Salvación de Fuerza -->
+            <!-- Primera fila: FUE, DES, CON -->
             <LinearLayout
+                android:id="@+id/layoutSalvacionesFila1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="4dp">
-                <TextView
-                    android:layout_width="wrap_content"
+
+                <!-- Salvación de Fuerza -->
+                <LinearLayout
+                    android:id="@+id/layoutSalvacionFue"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="FUE:" />
-                <EditText
-                    android:id="@+id/etSalvacionFue"
-                    android:layout_width="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvSalvacionFue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fuerza (FUE)" />
+                    <EditText
+                        android:id="@+id/etSalvacionFue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bonus"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <!-- Salvación de Destreza -->
+                <LinearLayout
+                    android:id="@+id/layoutSalvacionDes"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:hint="Bonus"
-                    android:inputType="number" />
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvSalvacionDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Destreza (DES)" />
+                    <EditText
+                        android:id="@+id/etSalvacionDes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bonus"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <!-- Salvación de Constitución -->
+                <LinearLayout
+                    android:id="@+id/layoutSalvacionCon"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvSalvacionCon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Constitución (CON)" />
+                    <EditText
+                        android:id="@+id/etSalvacionCon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bonus"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Salvación de Destreza -->
+            <!-- Segunda fila: INT, SAB, CAR -->
             <LinearLayout
+                android:id="@+id/layoutSalvacionesFila2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="4dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DES:" />
-                <EditText
-                    android:id="@+id/etSalvacionDes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:hint="Bonus"
-                    android:inputType="number" />
-            </LinearLayout>
 
-            <!-- Salvación de Constitución -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="4dp">
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Salvación de Inteligencia -->
+                <LinearLayout
+                    android:id="@+id/layoutSalvacionInt"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="CON:" />
-                <EditText
-                    android:id="@+id/etSalvacionCon"
-                    android:layout_width="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvSalvacionInt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Inteligencia (INT)" />
+                    <EditText
+                        android:id="@+id/etSalvacionInt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bonus"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <!-- Salvación de Sabiduría -->
+                <LinearLayout
+                    android:id="@+id/layoutSalvacionSab"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:hint="Bonus"
-                    android:inputType="number" />
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvSalvacionSab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sabiduría (SAB)" />
+                    <EditText
+                        android:id="@+id/etSalvacionSab"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bonus"
+                        android:inputType="number" />
+                </LinearLayout>
+
+                <!-- Salvación de Carisma -->
+                <LinearLayout
+                    android:id="@+id/layoutSalvacionCar"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvSalvacionCar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Carisma (CAR)" />
+                    <EditText
+                        android:id="@+id/etSalvacionCar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Bonus"
+                        android:inputType="number" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <!-- FIN SECCIÓN: SALVACIONES -->
+
+        <!-- SECCIÓN: HABILIDADES -->
+        <TextView
+            android:id="@+id/tvHabilidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Habilidades"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+
+        <!-- Contenedor para la lista de habilidades -->
+        <LinearLayout
+            android:id="@+id/layoutHabilidades"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <!-- Para cada habilidad se añade una fila con: etiqueta, EditText y ToggleButton -->
+            <!-- 1. Acrobacias (DES) -->
+            <LinearLayout
+                android:id="@+id/layoutAcrobacias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvAcrobacias"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Acrobacias (DES):" />
+                <EditText
+                    android:id="@+id/etAcrobacias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbAcrobacias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 2. Arcanos (INT) -->
+            <LinearLayout
+                android:id="@+id/layoutArcanos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvArcanos"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Arcanos (INT):" />
+                <EditText
+                    android:id="@+id/etArcanos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbArcanos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 3. Atletismo (FUE) -->
+            <LinearLayout
+                android:id="@+id/layoutAtletismo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvAtletismo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Atletismo (FUE):" />
+                <EditText
+                    android:id="@+id/etAtletismo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbAtletismo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 4. Engaño (CAR) -->
+            <LinearLayout
+                android:id="@+id/layoutEngano"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvEngano"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Engaño (CAR):" />
+                <EditText
+                    android:id="@+id/etEngano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbEngano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 5. Historia (INT) -->
+            <LinearLayout
+                android:id="@+id/layoutHistoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvHistoria"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Historia (INT):" />
+                <EditText
+                    android:id="@+id/etHistoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbHistoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 6. Interpretación (CAR) -->
+            <LinearLayout
+                android:id="@+id/layoutInterpretacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvInterpretacion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Interpretación (CAR):" />
+                <EditText
+                    android:id="@+id/etInterpretacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbInterpretacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 7. Intimidación (CAR) -->
+            <LinearLayout
+                android:id="@+id/layoutIntimidacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvIntimidacion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Intimidación (CAR):" />
+                <EditText
+                    android:id="@+id/etIntimidacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbIntimidacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 8. Investigación (INT) -->
+            <LinearLayout
+                android:id="@+id/layoutInvestigacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvInvestigacion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Investigación (INT):" />
+                <EditText
+                    android:id="@+id/etInvestigacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbInvestigacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 9. Juego de Manos (DES) -->
+            <LinearLayout
+                android:id="@+id/layoutJuegoManos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvJuegoManos"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Juego de Manos (DES):" />
+                <EditText
+                    android:id="@+id/etJuegoManos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbJuegoManos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 10. Medicina (SAB) -->
+            <LinearLayout
+                android:id="@+id/layoutMedicina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvMedicina"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Medicina (SAB):" />
+                <EditText
+                    android:id="@+id/etMedicina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbMedicina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 11. Naturaleza (INT) -->
+            <LinearLayout
+                android:id="@+id/layoutNaturaleza"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvNaturaleza"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Naturaleza (INT):" />
+                <EditText
+                    android:id="@+id/etNaturaleza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbNaturaleza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 12. Percepción (SAB) -->
+            <LinearLayout
+                android:id="@+id/layoutPercepcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvPercepcion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Percepción (SAB):" />
+                <EditText
+                    android:id="@+id/etPercepcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbPercepcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 13. Perspicacia (SAB) -->
+            <LinearLayout
+                android:id="@+id/layoutPerspicacia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvPerspicacia"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Perspicacia (SAB):" />
+                <EditText
+                    android:id="@+id/etPerspicacia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbPerspicacia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 14. Persuasión (CAR) -->
+            <LinearLayout
+                android:id="@+id/layoutPersuasion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvPersuasion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Persuasión (CAR):" />
+                <EditText
+                    android:id="@+id/etPersuasion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbPersuasion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 15. Religión (INT) -->
+            <LinearLayout
+                android:id="@+id/layoutReligion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvReligion"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Religión (INT):" />
+                <EditText
+                    android:id="@+id/etReligion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbReligion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 16. Sigilo (DES) -->
+            <LinearLayout
+                android:id="@+id/layoutSigilo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvSigilo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Sigilo (DES):" />
+                <EditText
+                    android:id="@+id/etSigilo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbSigilo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 17. Supervivencia (SAB) -->
+            <LinearLayout
+                android:id="@+id/layoutSupervivencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvSupervivencia"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Supervivencia (SAB):" />
+                <EditText
+                    android:id="@+id/etSupervivencia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbSupervivencia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+            <!-- 18. Trato con Animales (SAB) -->
+            <LinearLayout
+                android:id="@+id/layoutTratoAnimales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <TextView
+                    android:id="@+id/tvTratoAnimales"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Trato con Animales (SAB):" />
+                <EditText
+                    android:id="@+id/etTratoAnimales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Bonus"
+                    android:inputType="number" />
+                <ToggleButton
+                    android:id="@+id/tbTratoAnimales"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textOff="+"
+                    android:textOn="✓" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- FIN SECCIÓN: HABILIDADES -->
 
     </LinearLayout>
+    <!-- FIN Contenedor principal -->
 </ScrollView>
