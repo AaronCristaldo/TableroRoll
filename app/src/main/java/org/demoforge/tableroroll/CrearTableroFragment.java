@@ -1,6 +1,8 @@
 package org.demoforge.tableroroll;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,27 +31,29 @@ import java.util.Map;
 public class CrearTableroFragment extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private int selectedImageType = -1; // Tipo de imagen seleccionada
-    private Uri imageUri; // URI de la imagen seleccionada
+    private int selectedImageType = -1;
+    private Uri imageUri;
+    private Bitmap selectedBitmap;
 
-    public CrearTableroFragment() {
-        // Constructor vacío requerido
-    }
+    public CrearTableroFragment() { }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crear_tablero, container, false);
 
-        // Botones para seleccionar tipo de imagen
         Button btnImagen1 = view.findViewById(R.id.btnImagen715x1000);
         Button btnImagen2 = view.findViewById(R.id.btnImagen2000x1430);
         Button btnImagen3 = view.findViewById(R.id.btnImagen1000x1000);
 
-        // Manejadores de clic para cada botón (Abrir selector de imágenes)
-        btnImagen1.setOnClickListener(v -> seleccionarImagen(1, "Imagen 715x1000 requerida para formato vertical."));
-        btnImagen2.setOnClickListener(v -> seleccionarImagen(2, "Imagen 2000x1430 recomendada para uso en ancho."));
-        btnImagen3.setOnClickListener(v -> seleccionarImagen(3, "Imagen 1000x1000 utilizada para formatos cuadrados."));
+        btnImagen1.setOnClickListener(v -> seleccionarImagen(1,
+                "Imagen 715×1000 requerida para formato vertical."));
+        btnImagen2.setOnClickListener(v -> seleccionarImagen(2,
+                "Imagen 2000×1430 recomendada para uso en ancho."));
+        btnImagen3.setOnClickListener(v -> seleccionarImagen(3,
+                "Imagen 1000×1000 utilizada para formatos cuadrados."));
 
         return view;
     }
@@ -56,88 +61,111 @@ public class CrearTableroFragment extends Fragment {
     private void seleccionarImagen(int imageType, String mensaje) {
         selectedImageType = imageType;
         Toast.makeText(requireContext(), mensaje, Toast.LENGTH_LONG).show();
-
-        // Abrir el selector de imágenes
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode,
+                                 @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != PICK_IMAGE_REQUEST
+                || resultCode != Activity.RESULT_OK
+                || data == null
+                || data.getData() == null) return;
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            imageUri = data.getData();
-            validarYSubirImagen();
-        }
-    }
-
-    private void validarYSubirImagen() {
+        imageUri = data.getData();
         try {
-            InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            InputStream is = requireContext()
+                    .getContentResolver()
+                    .openInputStream(imageUri);
+            Bitmap bmp = BitmapFactory.decodeStream(is);
+            is.close();
 
-            int width = bitmap.getWidth();
-            int height = bitmap.getHeight();
-
-            boolean isValid = false;
-
-            // Validar dimensiones según el tipo seleccionado
-            if (selectedImageType == 1 && width == 715 && height == 1000) {
-                isValid = true;
-            } else if (selectedImageType == 2 && width == 2000 && height == 1430) {
-                isValid = true;
-            } else if (selectedImageType == 3 && width == 1000 && height == 1000) {
-                isValid = true;
+            if (validarDimensiones(bmp, selectedImageType)) {
+                selectedBitmap = bmp;
+                pedirNombreUsuario();
+            } else {
+                Toast.makeText(requireContext(),
+                        "La imagen no cumple con los requisitos de tamaño.",
+                        Toast.LENGTH_LONG).show();
             }
-
-            if (!isValid) {
-                Toast.makeText(requireContext(), "La imagen no cumple con los requisitos de tamaño.", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            // Convertir a Base64
-            String base64Image = convertirBase64(bitmap);
-
-            // Guardar en Firebase Realtime Database
-            subirImagenAFirebase(base64Image);
-
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(requireContext(), "Error al procesar la imagen.", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(),
+                    "Error al procesar la imagen.",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
-    private String convertirBase64(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    private boolean validarDimensiones(Bitmap bmp, int tipo) {
+        int w = bmp.getWidth(), h = bmp.getHeight();
+        return (tipo == 1 && w==715 && h==1000)
+                || (tipo == 2 && w==2000 && h==1430)
+                || (tipo == 3 && w==1000 && h==1000);
     }
 
-    private void subirImagenAFirebase(String base64Image) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("imagenes");
+    private void pedirNombreUsuario() {
+        final EditText input = new EditText(requireContext());
+        input.setHint("Nombre del mapa");
 
-        String key = ref.push().getKey(); // Genera una clave única para la imagen
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Asignar nombre")
+                .setMessage("Introduce un nombre para este mapa:")
+                .setView(input)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    String nombre = input.getText()
+                            .toString().trim();
+                    if (nombre.isEmpty()) {
+                        Toast.makeText(requireContext(),
+                                "El nombre no puede estar vacío.",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        subirImagenAFirebase(nombre);
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 
-        Map<String, Object> imageData = new HashMap<>();
-        imageData.put("tipo", selectedImageType);
-        imageData.put("imagenBase64", base64Image);
+    private void subirImagenAFirebase(String nombre) {
+        String base64 = convertirBase64(selectedBitmap);
+        DatabaseReference ref = FirebaseDatabase
+                .getInstance()
+                .getReference("imagenes")
+                .push();
 
-        assert key != null;
-        ref.child(key).setValue(imageData).addOnSuccessListener(aVoid -> {
-            Toast.makeText(requireContext(), "Imagen guardada en Firebase.", Toast.LENGTH_SHORT).show();
-            abrirGridActivity();
-        }).addOnFailureListener(e -> {
-            Toast.makeText(requireContext(), "Error al guardar la imagen.", Toast.LENGTH_SHORT).show();
-        });
+        Map<String,Object> data = new HashMap<>();
+        data.put("tipo", selectedImageType);
+        data.put("nombre", nombre);
+        data.put("imagenBase64", base64);
+
+        ref.setValue(data)
+                .addOnSuccessListener(v -> {
+                    Toast.makeText(requireContext(),
+                            "Mapa \""+nombre+"\" guardado.",
+                            Toast.LENGTH_SHORT).show();
+                    abrirGridActivity();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(requireContext(),
+                            "Error al guardar la imagen.",
+                            Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private String convertirBase64(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return Base64.encodeToString(
+                baos.toByteArray(), Base64.DEFAULT);
     }
 
     private void abrirGridActivity() {
-        Intent intent = new Intent(getActivity(), GridActivity.class);
-        intent.putExtra("IMAGE_TYPE", selectedImageType);
+        Intent intent = new Intent(getActivity(),
+                GridActivity.class);
+        // opcional: podrías pasar selectedImageType o forzar recarga
         startActivity(intent);
     }
 }

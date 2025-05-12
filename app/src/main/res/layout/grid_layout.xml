@@ -1,9 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Spinner para seleccionar el mapa guardado -->
+    <Spinner
+        android:id="@+id/spinnerMaps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp" />
+
+    <!-- ScrollView que contiene el mapa y la cuadrícula -->
     <ScrollView
+        android:layout_below="@id/spinnerMaps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical">
@@ -17,15 +25,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+                <!-- Imagen de fondo (mapa) -->
                 <ImageView
                     android:id="@+id/mapImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/dnd_mapa_mini_acantilado"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="center" />
 
-
+                <!-- Contenedor donde se inyecta la cuadrícula y el jugador -->
                 <FrameLayout
                     android:id="@+id/gridContainer"
                     android:layout_width="wrap_content"
@@ -34,5 +42,8 @@
             </FrameLayout>
         </HorizontalScrollView>
     </ScrollView>
+
+
+
 
 </RelativeLayout>
