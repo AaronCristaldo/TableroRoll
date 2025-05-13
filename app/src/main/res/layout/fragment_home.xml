@@ -4,75 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/white"
-        android:gravity="center">
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Título o encabezado (opcional) -->
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/seleccionar_opcion"
-            android:textSize="20sp"
-            android:layout_marginBottom="24dp"
-            android:textColor="#000000"
-            android:gravity="center"/>
-
-        <!-- Botón: Acceder a Fitxa -->
-        <Button
-            android:id="@+id/btnAccederFitxa"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Acceder a Fitxa"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp"
-            android:background="?android:attr/selectableItemBackground" />
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-        <!-- Botón: Acceder a Tablero -->
-        <Button
-            android:id="@+id/btnAccederTablero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/acceder_tablero"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp"
-            android:background="?android:attr/selectableItemBackground" />
+            <!-- Título -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/seleccionar_opcion"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/primaryText"
+                android:layout_marginBottom="24dp"
+                android:gravity="center" />
 
-        <!-- Botón: Crear Fitxa -->
-        <Button
-            android:id="@+id/btnCrearFitxa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/crear_fitxa"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginBottom="16dp"
-            android:background="?android:attr/selectableItemBackground" />
+            <!-- Botones -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAccederFitxa"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Acceder a Fitxa"
+                android:layout_marginBottom="16dp" />
 
-        <!-- Botón: Crear Tablero -->
-        <Button
-            android:id="@+id/btnCrearTablero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/crear_tablero"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:background="?android:attr/selectableItemBackground" />
-        <Button
-            android:id="@+id/btnOpenGrid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Abrir Cuadrícula"
-            android:layout_gravity="center" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAccederTablero"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/acceder_tablero"
+                android:layout_marginBottom="16dp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCrearFitxa"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_fitxa"
+                android:layout_marginBottom="16dp" />
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCrearTablero"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crear_tablero"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenGrid"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abrir Cuadrícula" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
