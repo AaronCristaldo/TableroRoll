@@ -6,6 +6,8 @@ public class Player {
     private int x;
     private int y;
     private int spriteResId;
+    private String imagenBase64; // Esta debería ser la imagen en Base64
+
 
     public Player() {
         // Constructor vacío requerido por Firebase
@@ -36,5 +38,13 @@ public class Player {
 
     public int getSpriteResId() { return spriteResId; }
     public void setSpriteResId(int spriteResId) { this.spriteResId = spriteResId; }
+
+    public void setImagenBase64(String imagenBase64) {
+        this.imagenBase64 = imagenBase64;
+    }
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
 }
 

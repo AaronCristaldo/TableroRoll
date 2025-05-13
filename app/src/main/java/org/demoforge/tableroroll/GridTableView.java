@@ -39,8 +39,8 @@ public class GridTableView {
             for (int j = 0; j < cols; j++) {
                 TextView textView = new TextView(context);
 
-                int randomNumber = random.nextInt(10) + 1;
-                textView.setText(String.valueOf(randomNumber));
+               // int randomNumber = random.nextInt(10) + 1;
+                //textView.setText(String.valueOf(randomNumber));
 
                 textView.setBackgroundColor(Color.TRANSPARENT);
                 textView.setTextColor(Color.BLACK);

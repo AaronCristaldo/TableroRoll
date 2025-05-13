@@ -1,11 +1,13 @@
-
 package org.demoforge.tableroroll;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Base64;
 import android.view.MotionEvent;
@@ -24,11 +26,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +60,10 @@ public class GridActivity extends AppCompatActivity {
     private ArrayList<Player> jugadores = new ArrayList<>();
     private ArrayList<ImageView> jugadorViews = new ArrayList<>();
     private Player jugadorSeleccionado = null;
+    private static final int REQUEST_IMAGE_PICK = 1001;
+    private ImageView imagenPreview;
+    private String imagenSeleccionadaBase64 = null;
+
 
 
     @Override
@@ -81,10 +89,6 @@ public class GridActivity extends AppCompatActivity {
             @Override public void onItemSelected(AdapterView<?> p, View v, int pos, long id) {
                 MapEntry mapa = mapas.get(pos);
                 mostrarMapaYGrid(mapa);
-
-                new android.os.Handler().postDelayed(() -> {
-                    mostrarDialogoCrearJugador(mapa);
-                }, 300);
             }
             @Override public void onNothingSelected(AdapterView<?> p) { }
         });
@@ -109,6 +113,61 @@ public class GridActivity extends AppCompatActivity {
                         Toast.makeText(GridActivity.this,
                                 "Error cargando mapas", Toast.LENGTH_SHORT).show();
                     }
+                });
+        databaseReference.child("jugadores")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // Primero limpiar todos los jugadores existentes
+                        limpiarJugadoresActuales();
+
+                        jugadores.clear();
+                        jugadorViews.clear();
+
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String mapaId = ds.child("mapaId").getValue(String.class);
+                            if (mapaId == null || !mapaId.equals(getMapaActualKey())) continue;
+
+                            String nombre = ds.child("nombre").getValue(String.class);
+                            Integer vida = ds.child("vida").getValue(Integer.class);
+                            Integer x = ds.child("x").getValue(Integer.class);
+                            Integer y = ds.child("y").getValue(Integer.class);
+                            String imagenBase64 = ds.child("imagenBase64").getValue(String.class);
+
+                            if (nombre == null || vida == null || x == null || y == null) continue;
+
+                            Player jugador = new Player(nombre, vida, x, y, 0);
+                            jugadores.add(jugador);
+
+                            ImageView jugadorView = new ImageView(GridActivity.this);
+                            if (imagenBase64 != null && !imagenBase64.isEmpty()) {
+                                Bitmap bmp = convertirBase64ABitmap(imagenBase64);
+                                jugadorView.setImageBitmap(bmp);
+                            } else {
+                                jugadorView.setImageResource(R.drawable.player_sprite);
+                            }
+
+                            jugadorView.setLayoutParams(new FrameLayout.LayoutParams(BASE_CELL_SIZE, BASE_CELL_SIZE));
+                            jugadorView.setX(x * BASE_CELL_SIZE);
+                            jugadorView.setY(y * BASE_CELL_SIZE);
+
+                            jugadorView.setOnClickListener(v -> {
+                                jugadorSeleccionado = jugador;
+                                Toast.makeText(GridActivity.this, "Jugador seleccionado", Toast.LENGTH_SHORT).show();
+                            });
+
+                            jugadorView.setOnLongClickListener(v -> {
+                                mostrarDialogoEliminarJugador(jugador);
+                                return true;
+                            });
+
+                            gridContainer.addView(jugadorView);
+                            jugadorViews.add(jugadorView);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { }
                 });
 
         player = new Player("Heroe", 10, 0, 0, R.drawable.player_sprite);
@@ -141,6 +200,9 @@ public class GridActivity extends AppCompatActivity {
                     ImageView view = jugadorViews.get(index);
                     view.setX(cellX * BASE_CELL_SIZE);
                     view.setY(cellY * BASE_CELL_SIZE);
+
+                    // Actualizar posición en Firebase
+                    actualizarPosicionJugadorEnFirebase(jugadorSeleccionado, cellX, cellY);
                 }
 
                 jugadorSeleccionado = null;
@@ -148,7 +210,99 @@ public class GridActivity extends AppCompatActivity {
             }
             return false;
         });
+        FloatingActionButton fabCrearJugador = findViewById(R.id.fabCrearJugador);
+        FloatingActionButton fabCrearFicha = findViewById(R.id.fabCrearFicha);
+
+        fabCrearJugador.setOnClickListener(v -> {
+            int pos = spinnerMaps.getSelectedItemPosition();
+            if (pos >= 0 && pos < mapas.size()) {
+                mostrarDialogoCrearJugador(mapas.get(pos));
+            } else {
+                Toast.makeText(this, "No hay mapa seleccionado", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fabCrearFicha.setOnClickListener(v -> {
+            Toast.makeText(this, "Función para crear ficha aún no implementada", Toast.LENGTH_SHORT).show();
+        });
     }
+
+    // Método para limpiar los jugadores actuales del gridContainer
+    private void limpiarJugadoresActuales() {
+        // Eliminar solo las vistas de jugadores, no el mapa ni la cuadrícula
+        for (ImageView view : jugadorViews) {
+            gridContainer.removeView(view);
+        }
+    }
+
+    // Método para actualizar la posición del jugador en Firebase
+    private void actualizarPosicionJugadorEnFirebase(Player jugador, int x, int y) {
+        databaseReference.child("jugadores")
+                .orderByChild("nombre")
+                .equalTo(jugador.getNombre())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String mapaId = ds.child("mapaId").getValue(String.class);
+                            if (mapaId != null && mapaId.equals(getMapaActualKey())) {
+                                Map<String, Object> updates = new HashMap<>();
+                                updates.put("x", x);
+                                updates.put("y", y);
+                                ds.getRef().updateChildren(updates);
+                                return;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(GridActivity.this, "Error al actualizar posición", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private String getMapaActualKey() {
+        int pos = spinnerMaps.getSelectedItemPosition();
+        if (pos >= 0 && pos < mapas.size()) {
+            return mapas.get(pos).key;
+        }
+        return null;
+    }
+
+    private void mostrarDialogoEliminarJugador(Player jugador) {
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar jugador")
+                .setMessage("¿Estás seguro de que quieres eliminar a " + jugador.getNombre() + "?")
+                .setPositiveButton("Eliminar", (dialog, which) -> {
+                    // Buscar al jugador en Firebase usando nombre y mapaId
+                    databaseReference.child("jugadores")
+                            .orderByChild("nombre")
+                            .equalTo(jugador.getNombre())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot ds : snapshot.getChildren()) {
+                                        String mapaId = ds.child("mapaId").getValue(String.class);
+                                        if (mapaId != null && mapaId.equals(getMapaActualKey())) {
+                                            ds.getRef().removeValue(); // Elimina el jugador
+                                            Toast.makeText(GridActivity.this, "Jugador eliminado", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                    }
+                                    Toast.makeText(GridActivity.this, "Jugador no encontrado", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(GridActivity.this, "Error eliminando jugador", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
 
     private void mostrarMapaYGrid(MapEntry entry) {
         databaseReference.child("imagenes")
@@ -200,7 +354,9 @@ public class GridActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError e) {
                     }
                 });
-        safeAddView(gridContainer, playerView);
+        if (playerView.getParent() == null) {
+            gridContainer.addView(playerView);
+        }
     }
     private void safeAddView(ViewGroup parent, View child) {
         if (child.getParent() != null) {
@@ -210,7 +366,6 @@ public class GridActivity extends AppCompatActivity {
     }
 
     private void reconstruirGridParaTipo(int tipo) {
-        gridContainer.removeAllViews(); // Limpiar las vistas previas
 
         int f, c;
         switch (tipo) {
@@ -226,15 +381,6 @@ public class GridActivity extends AppCompatActivity {
         GridTableView gtv = new GridTableView(this, BASE_CELL_SIZE);
         TableLayout tabla = gtv.createGrid(f, c);
         safeAddView(gridContainer, tabla);
-
-        // Añadir todos los jugadores
-        for (int i = 0; i < jugadores.size(); i++) {
-            Player p = jugadores.get(i);
-            ImageView iv = jugadorViews.get(i);
-            iv.setX(p.getX() * BASE_CELL_SIZE);
-            iv.setY(p.getY() * BASE_CELL_SIZE);
-            safeAddView(gridContainer, iv); // Agregar jugadores de manera segura
-        }
     }
 
 
@@ -244,7 +390,75 @@ public class GridActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogoCrearJugador(MapEntry mapa) {
-        // No se ha modificado, sigue igual
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Crear Jugador");
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(20, 20, 20, 20);
+
+        EditText inputNombre = new EditText(this);
+        inputNombre.setHint("Nombre del jugador");
+        layout.addView(inputNombre);
+
+        imagenPreview = new ImageView(this);
+        imagenPreview.setLayoutParams(new LinearLayout.LayoutParams(200, 200));
+        imagenPreview.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        layout.addView(imagenPreview);
+
+        View btnSeleccionarImagen = new View(this);
+        btnSeleccionarImagen = new android.widget.Button(this);
+        ((android.widget.Button) btnSeleccionarImagen).setText("Seleccionar Imagen");
+        layout.addView(btnSeleccionarImagen);
+
+        builder.setView(layout);
+
+        builder.setPositiveButton("Crear", (dialog, which) -> {
+            String nombre = inputNombre.getText().toString().trim();
+            if (nombre.isEmpty()) {
+                Toast.makeText(this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Usa la imagen seleccionada o la predeterminada si no se seleccionó ninguna
+            String imgBase64 = imagenSeleccionadaBase64 != null ? imagenSeleccionadaBase64 : convertirDrawableABase64(R.drawable.player_sprite);
+
+            int vida = 10;
+            crearJugadorEnFirebase(nombre, vida, imgBase64, mapa);
+        });
+
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        btnSeleccionarImagen.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_IMAGE_PICK);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                imagenPreview.setImageBitmap(bitmap);
+                imagenSeleccionadaBase64 = convertirBitmapABase64(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private String convertirBitmapABase64(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     private String convertirDrawableABase64(int drawableResId) {
@@ -256,6 +470,27 @@ public class GridActivity extends AppCompatActivity {
     }
 
     private void crearJugadorEnFirebase(String nombre, int vida, String imagenBase64, MapEntry mapa) {
-        // No se ha modificado, sigue igual
+        String uid = currentUser != null ? currentUser.getUid() : "anon";
+        String key = databaseReference.child("jugadores").push().getKey();
+
+        if (key == null) return;
+
+        Map<String, Object> jugadorData = new HashMap<>();
+        jugadorData.put("nombre", nombre);
+        jugadorData.put("vida", vida);
+        jugadorData.put("imagenBase64", imagenBase64); // Guardamos la imagen en base64
+        jugadorData.put("x", 0);
+        jugadorData.put("y", 0);
+        jugadorData.put("mapaId", mapa.key);
+        jugadorData.put("uid", uid);
+
+        // Guardamos en Firebase
+        databaseReference.child("jugadores").child(key).setValue(jugadorData)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(this, "Jugador creado", Toast.LENGTH_SHORT).show();
+                    // El listener de Firebase se encarga de mostrarlo.
+                    imagenSeleccionadaBase64 = null; // Resetear la imagen seleccionada
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error creando jugador", Toast.LENGTH_SHORT).show());
     }
 }
