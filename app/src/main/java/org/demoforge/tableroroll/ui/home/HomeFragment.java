@@ -27,35 +27,28 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Inicializa el ViewModel, si lo necesitas
+        // Inicializa el ViewModel (si lo necesitas)
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         // Botón para abrir la cuadrícula
-        binding.btnOpenGrid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), GridActivity.class);
-                startActivity(intent);
-            }
+        binding.btnOpenGrid.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), GridActivity.class);
+            startActivity(intent);
         });
 
-        // Botón para crear ficha
-        binding.btnCrearFitxa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_homeFragment_to_characterSheetFragment);
-            }
+        // Botón para acceder al listado de fichas
+
+        // Botón para crear ficha directamente
+        binding.btnCrearFitxa.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_homeFragment_to_characterSheetFragment);
         });
 
         // Botón para crear tablero (NUEVO)
-        binding.btnCrearTablero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_homeFragment_to_crearTableroFragment);
-            }
+        binding.btnCrearTablero.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_homeFragment_to_crearTableroFragment);
         });
 
         return root;

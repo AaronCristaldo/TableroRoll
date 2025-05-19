@@ -3,44 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
+    <!-- Fragment Home -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="org.demoforge.tableroroll.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
 
+        <!-- Acción para ir a la ficha de personaje -->
         <action
             android:id="@+id/action_homeFragment_to_characterSheetFragment"
             app:destination="@id/characterSheetFragment" />
 
-        <!-- ✅ Se mueve la acción aquí -->
+        <!-- Acción para crear un tablero -->
         <action
             android:id="@+id/action_homeFragment_to_crearTableroFragment"
             app:destination="@id/crearTableroFragment" />
     </fragment>
 
+    <!-- Fragment que muestra la lista de fichas -->
+    <fragment
+        android:id="@+id/fichaListFragment"
+        android:name="org.demoforge.tableroroll.FichaListFragment"
+        android:label="Mis Fichas"
+        tools:layout="@layout/fragment_ficha_list">
+
+        <!-- Navegar a CharacterSheetFragment al pulsar una ficha -->
+        <action
+            android:id="@+id/action_fichaListFragment_to_characterSheetFragment"
+            app:destination="@id/characterSheetFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <!-- Dashboard (panel principal secundario) -->
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="org.demoforge.tableroroll.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
+    <!-- Notificaciones -->
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="org.demoforge.tableroroll.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
+    <!-- Fragment de la ficha de personaje -->
     <fragment
         android:id="@+id/characterSheetFragment"
         android:name="org.demoforge.tableroroll.ui.home.CharacterSheetFragment"
-        android:label="Character Sheet" />
+        android:label="Character Sheet"
+        tools:layout="@layout/fragment_ficha" />
 
+    <!-- Fragment para crear un tablero -->
     <fragment
         android:id="@+id/crearTableroFragment"
         android:name="org.demoforge.tableroroll.CrearTableroFragment"
         android:label="Crear Tablero"
         tools:layout="@layout/fragment_crear_tablero" />
+
 </navigation>
