@@ -37,6 +37,8 @@ android {
 
 dependencies {
 
+
+    implementation ("com.google.firebase:firebase-database:20.1.0")
     implementation ("com.google.android.material:material:1.6.0")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -55,6 +57,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

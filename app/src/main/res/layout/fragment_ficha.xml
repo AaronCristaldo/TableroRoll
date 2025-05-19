@@ -232,7 +232,8 @@
                     android:id="@+id/etFuerza"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="numberSigned"
+                    android:digits="-0123456789" />
             </LinearLayout>
 
             <!-- Destreza -->
@@ -252,7 +253,8 @@
                     android:id="@+id/etDestreza"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="numberSigned"
+                    android:digits="-0123456789" />
             </LinearLayout>
 
             <!-- Constitución -->
@@ -272,7 +274,8 @@
                     android:id="@+id/etConstitucion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="numberSigned"
+                    android:digits="-0123456789" />
             </LinearLayout>
         </LinearLayout>
 
@@ -301,7 +304,8 @@
                     android:id="@+id/etInteligencia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="numberSigned"
+                    android:digits="-0123456789" />
             </LinearLayout>
 
             <!-- Sabiduría -->
@@ -321,7 +325,8 @@
                     android:id="@+id/etSabiduria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="numberSigned"
+                    android:digits="-0123456789" />
             </LinearLayout>
 
             <!-- Carisma -->
@@ -341,7 +346,8 @@
                     android:id="@+id/etCarisma"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="numberSigned"
+                    android:digits="-0123456789" />
             </LinearLayout>
         </LinearLayout>
         <!-- FIN SECCIÓN: ATRIBUTOS -->
@@ -357,7 +363,6 @@
             android:gravity="center"
             android:layout_marginTop="16dp" />
 
-        <!-- Salvaciones en 2 filas -->
         <LinearLayout
             android:id="@+id/layoutSalvaciones"
             android:layout_width="match_parent"
@@ -371,66 +376,121 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:weightSum="3"
                 android:padding="4dp">
 
-                <!-- Salvación de Fuerza -->
+                <!-- Fuerza -->
                 <LinearLayout
-                    android:id="@+id/layoutSalvacionFue"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="10"
+                    android:padding="4dp">
+
                     <TextView
                         android:id="@+id/tvSalvacionFue"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content"
                         android:text="Fuerza (FUE)" />
+
                     <EditText
                         android:id="@+id/etSalvacionFue"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Bonus"
-                        android:inputType="number" />
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:digits="-0123456789"
+                        android:gravity="center_vertical"
+                        android:hint="+"
+                        android:inputType="numberSigned"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/tbSalvacionFue"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:textOff="+Prof"
+                        android:textOn="✓Prof" />
                 </LinearLayout>
 
-                <!-- Salvación de Destreza -->
+                <!-- Destreza -->
                 <LinearLayout
-                    android:id="@+id/layoutSalvacionDes"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="10"
+                    android:padding="4dp">
+
                     <TextView
                         android:id="@+id/tvSalvacionDes"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content"
                         android:text="Destreza (DES)" />
+
                     <EditText
                         android:id="@+id/etSalvacionDes"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Bonus"
-                        android:inputType="number" />
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:digits="-0123456789"
+                        android:gravity="center_vertical"
+                        android:hint="+"
+                        android:inputType="numberSigned"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/tbSalvacionDes"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:textOff="+Prof"
+                        android:textOn="✓Prof" />
                 </LinearLayout>
 
-                <!-- Salvación de Constitución -->
+                <!-- Constitución -->
                 <LinearLayout
-                    android:id="@+id/layoutSalvacionCon"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="10"
+                    android:padding="4dp">
+
                     <TextView
                         android:id="@+id/tvSalvacionCon"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content"
                         android:text="Constitución (CON)" />
+
                     <EditText
                         android:id="@+id/etSalvacionCon"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Bonus"
-                        android:inputType="number" />
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:digits="-0123456789"
+                        android:gravity="center_vertical"
+                        android:hint="+"
+                        android:inputType="numberSigned"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/tbSalvacionCon"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:textOff="+Prof"
+                        android:textOn="✓Prof" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -440,70 +500,126 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:weightSum="3"
                 android:padding="4dp">
 
-                <!-- Salvación de Inteligencia -->
+                <!-- Inteligencia -->
                 <LinearLayout
-                    android:id="@+id/layoutSalvacionInt"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="10"
+                    android:padding="4dp">
+
                     <TextView
                         android:id="@+id/tvSalvacionInt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content"
                         android:text="Inteligencia (INT)" />
+
                     <EditText
                         android:id="@+id/etSalvacionInt"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Bonus"
-                        android:inputType="number" />
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:digits="-0123456789"
+                        android:gravity="center_vertical"
+                        android:hint="+"
+                        android:inputType="numberSigned"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/tbSalvacionInt"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:textOff="+Prof"
+                        android:textOn="✓Prof" />
                 </LinearLayout>
 
-                <!-- Salvación de Sabiduría -->
+                <!-- Sabiduría -->
                 <LinearLayout
-                    android:id="@+id/layoutSalvacionSab"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="10"
+                    android:padding="4dp">
+
                     <TextView
                         android:id="@+id/tvSalvacionSab"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content"
                         android:text="Sabiduría (SAB)" />
+
                     <EditText
                         android:id="@+id/etSalvacionSab"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Bonus"
-                        android:inputType="number" />
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:digits="-0123456789"
+                        android:gravity="center_vertical"
+                        android:hint="+"
+                        android:inputType="numberSigned"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/tbSalvacionSab"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:textOff="+Prof"
+                        android:textOn="✓Prof" />
                 </LinearLayout>
 
-                <!-- Salvación de Carisma -->
+                <!-- Carisma -->
                 <LinearLayout
-                    android:id="@+id/layoutSalvacionCar"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:weightSum="10"
+                    android:padding="4dp">
+
                     <TextView
                         android:id="@+id/tvSalvacionCar"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content"
                         android:text="Carisma (CAR)" />
+
                     <EditText
                         android:id="@+id/etSalvacionCar"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="Bonus"
-                        android:inputType="number" />
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="2"
+                        android:digits="-0123456789"
+                        android:gravity="center_vertical"
+                        android:hint="+"
+                        android:inputType="numberSigned"
+                        android:singleLine="true" />
+
+                    <ToggleButton
+                        android:id="@+id/tbSalvacionCar"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:textOff="+Prof"
+                        android:textOn="✓Prof" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <!-- FIN SECCIÓN: SALVACIONES -->
+
+
 
         <!-- SECCIÓN: HABILIDADES -->
         <TextView
@@ -1014,6 +1130,810 @@
         </LinearLayout>
         <!-- FIN SECCIÓN: HABILIDADES -->
 
+        <TextView
+            android:id="@+id/tvEquipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Equipo"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/etEquipo"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:hint="Anota aquí tu equipo"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:background="?android:attr/editTextBackground"
+            android:padding="8dp" />
+
+        <!-- SECCIÓN: MONEDAS -->
+        <TextView
+            android:id="@+id/tvMonedas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Monedas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:gravity="center_horizontal">
+
+            <!-- Plata de cobre (PC) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PC"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/etPC"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Plata (PP) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PP"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/etPP"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Electrum (PE) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PE"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/etPE"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Oro (PO) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PO"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/etPO"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Platino (PPT) -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PPT"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/etPPT"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- FIN SECCIÓN: MONEDAS -->
+
+        <!-- SECCIÓN: ARMAS -->
+        <TextView
+            android:id="@+id/tvArmas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Armas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:gravity="center" />
+
+        <!-- Encabezados de columnas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Bon. Ataque"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Daño"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Tres filas para armas -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp">
+                <EditText
+                    android:id="@+id/etArmaNombre1"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre" />
+                <EditText
+                    android:id="@+id/etArmaBon1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="+Ataque"
+                    android:inputType="number" />
+                <EditText
+                    android:id="@+id/etArmaDanio1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Daño" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp">
+                <EditText
+                    android:id="@+id/etArmaNombre2"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre" />
+                <EditText
+                    android:id="@+id/etArmaBon2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="+Ataque"
+                    android:inputType="number" />
+                <EditText
+                    android:id="@+id/etArmaDanio2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Daño" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="4dp">
+                <EditText
+                    android:id="@+id/etArmaNombre3"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre" />
+                <EditText
+                    android:id="@+id/etArmaBon3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="+Ataque"
+                    android:inputType="number" />
+                <EditText
+                    android:id="@+id/etArmaDanio3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Daño" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!-- FIN SECCIÓN: ARMAS -->
+        <!-- SECCIÓN: RASGOS Y ATRIBUTOS -->
+        <TextView
+            android:id="@+id/tvRasgos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rasgos y Atributos"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/etRasgos"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:hint="Anota aquí tus rasgos, características y cualquier atributo adicional"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:background="?android:attr/editTextBackground"
+            android:padding="8dp"/>
+        <!-- FIN SECCIÓN: RASGOS Y ATRIBUTOS -->
+        <!-- SECCIÓN: MAGIA SIMPLIFICADA -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MAGIA"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 0. Trucos -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trucos"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Campos de espacios -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots0Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots0Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <!-- Caja multilinea para Trucos -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus trucos aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 1. Nivel 1 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 1"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots1Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots1Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 1 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 2. Nivel 2 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 2"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots2Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots2Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 2 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 3. Nivel 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 3"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots3Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots3Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 3 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 4. Nivel 4 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 4"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots4Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots4Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 4 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 5. Nivel 5 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 5"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots5Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots5Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 5 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 6. Nivel 6 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 6"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots6Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots6Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 6 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 7. Nivel 7 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 7"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots7Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots7Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 7 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 8. Nivel 8 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 8"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots8Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots8Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 8 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- 9. Nivel 9 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hechizos Nivel 9"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Espacios Totales:"/>
+
+                <EditText
+                    android:id="@+id/etSlots9Total"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Espacios Gastados:"/>
+
+                <EditText
+                    android:id="@+id/etSlots9Used"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Escribe tus hechizos de nivel 9 aquí..."
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+        <!-- FIN SECCIÓN: MAGIA SIMPLIFICADA -->
+        <Button
+            android:id="@+id/btnGuardarFicha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar ficha"
+            android:layout_marginTop="16dp"/>
     </LinearLayout>
+
+
+
+
+
     <!-- FIN Contenedor principal -->
 </ScrollView>
